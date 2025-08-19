@@ -7,7 +7,6 @@ A robust and secure Node.js backend boilerplate engineered by John Layda (ChyDev
 - **TypeScript**: Type-safe development with modern JavaScript features
 - **Express.js**: Fast, unopinionated, minimalist web framework
 - **Security Measures**:
-  - CSRF Protection
   - Rate limiting
   - Secure cookies
   - Helmet security headers
@@ -22,7 +21,6 @@ A robust and secure Node.js backend boilerplate engineered by John Layda (ChyDev
   - Authentication
   - Compression
   - CORS
-  - CSRF protection
   - Rate limiting
   - Role-based access control
   - Security headers
