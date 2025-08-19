@@ -1,0 +1,31 @@
+GET http://localhost:5000/api/v1/sample
+Content-Type: application/json 
+api-key: 
+
+
+### 
+POST http://localhost:5000/api/v1/auth/register 
+Content-Type: application/json 
+api-key: 
+
+{
+    "name": "John Layda",
+    "email": "Johnlayda92@gmail.com",
+    "password": "Chysev@123"
+}
+
+###
+POST http://localhost:5000/api/v1/auth/login
+Content-Type: application/json 
+api-key: 
+
+{
+    "email": "Johnlayda92@gmail.com",
+    "password": "Chysev@123"
+}
+
+###
+POST http://localhost:5000/api/v1/auth/sessionToken
+Content-Type: application/json 
+api-key: 
+Authorization: Bearer 
