@@ -41,8 +41,8 @@ A robust and secure Node.js backend boilerplate engineered by John Layda (ChyDev
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/chysev/chy-node-be-boilerplate.git
-   cd chy-node-be-boilerplate
+   git clone https://github.com/Chysev/chydev-node-boilerplate
+   cd chydev-node-boilerplate
    ```
 
 2. Install dependencies:
