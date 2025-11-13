@@ -14,3 +14,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 /src/generated/prisma
+/deployment/.env
+/deployment/mariadb_data
+/deployment/logs
