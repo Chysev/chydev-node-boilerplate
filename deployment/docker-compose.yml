@@ -1,0 +1,43 @@
+services:
+  mariadb:
+    image: mariadb:11.3
+    container_name: mariadb
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./mariadb_data:/var/lib/mysql
+      - ./custom.cnf:/etc/mysql/conf.d/custom.cnf
+    ports:
+      - "127.0.0.1:36457:3306" # Change port if used.
+    networks:
+      - dev_network
+
+  api:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    container_name: api
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mariadb:3306/${MYSQL_DATABASE}
+    env_file:
+      - ../.env
+    ports:
+      - "127.0.0.1:5000:5000"
+    networks:
+      - dev_network
+    volumes:
+      - ./logs:/app/logs
+
+networks:
+  dev_network:
+    external: true
