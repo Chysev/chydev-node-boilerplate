@@ -33,6 +33,9 @@ class index {
     }
 
     private Routes(): void {
+        this.app.get("/", (req: Request, res: Response) => {
+            res.send("You don\'t have permission to access / on this server.")
+        });
         this.app.use(`/${appConfig.BASEROUTE}/${appConfig.VERSION}`, this.appRouter)
     }
 
