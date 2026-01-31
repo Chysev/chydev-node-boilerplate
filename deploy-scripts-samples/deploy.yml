@@ -46,8 +46,7 @@ jobs:
             docker compose -f deployment/docker-compose.yml exec -T api npx prisma db push
 
             echo "📋 Marking migrations as applied..."
-            docker compose -f deployment/docker-compose.yml exec -T api npx prisma migrate resolve --applied 20250730192637_init || echo "Migration already resolved"
-            docker compose -f deployment/docker-compose.yml exec -T api npx prisma migrate resolve --applied 20250730195235_datenow || echo "Migration already resolved"
+            docker compose -f deployment/docker-compose.yml exec -T api npx prisma migrate resolve --applied 20260131023540_init || echo "Migration already resolved"
 
             echo "📊 Container status:"
             docker compose -f deployment/docker-compose.yml ps
