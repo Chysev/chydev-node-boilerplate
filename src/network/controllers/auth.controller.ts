@@ -15,24 +15,24 @@ class AuthController extends Api {
         try {
             const { email, password } = await req.body;
 
-            const user = await prisma.user.findFirst({
+            const user = await prisma.users.findFirst({
                 where: { email: email }
             })
 
             if (!user) {
-                return this.httpError.notFound("User Not Found")
+                return next(this.httpError.notFound("User Not Found"))
             }
 
             const passwordMatch = await this.bcrypt.compare(password, user.password);
 
             if (!passwordMatch) {
-                return this.httpError.unauthorized("Invalid Credentials");
+                return next(this.httpError.unauthorized("Invalid Credentials"));
             }
 
             const encryptToken = await this.cipherToken.encrypt({
                 id: user.id,
                 name: user.name as string,
-                email: user.name as string,
+                email: user.email as string,
                 expiresAt: Date.now() + 1000 * 60 * 60 * 24 * 30,
                 issuedAt: Date.now()
             })
@@ -51,28 +51,26 @@ class AuthController extends Api {
         try {
             const { name, email, password } = await req.body;
 
-            const user = await prisma.user.findUnique({
+            const user = await prisma.users.findUnique({
                 where: { email: email }
             })
 
             if (user) {
-                return this.httpError.conflict("Account is already taken")
+                return next(this.httpError.conflict("Account is already taken"));
             }
 
             const passwordHashed = await this.bcrypt.hash(password);
 
-            await prisma.$transaction(async (tx) => {
-                await tx.user.create({
-                    data: {
-                        name: name,
-                        email: email,
-                        password: passwordHashed
-                    }
-                })
+            await prisma.users.create({
+                data: {
+                    name: name,
+                    email: email,
+                    password: passwordHashed
+                }
             })
 
             const data = {
-
+                message: "Account Created"
             }
 
             this.created(res, data, "Register Route")
@@ -83,7 +81,7 @@ class AuthController extends Api {
 
     public async sessionToken(req: Request, res: Response, next: NextFunction) {
         try {
-            const user = await prisma.user.findUnique({
+            const user = await prisma.users.findUnique({
                 where: { id: req.user.id },
                 select: {
                     name: true,
