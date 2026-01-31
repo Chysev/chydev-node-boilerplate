@@ -5,21 +5,17 @@
     "lib": ["ESNext"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "rootDir": "src",
-    "baseUrl": ".",
+    "rootDir": ".",
     "outDir": "./build",
     "resolveJsonModule": true,
-    "moduleResolution": "node",
     "experimentalDecorators": true,
     "strictNullChecks": true,
     "types": ["node", "./src/types/index.d.ts"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"],
+      "@prisma/*": ["./prisma/build/*"]
     }
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "build"],
-  "ts-node": {
-    "swc": true
-  }
+  "exclude": ["node_modules", "build"]
 }
